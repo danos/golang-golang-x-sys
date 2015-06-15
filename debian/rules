@@ -1,0 +1,22 @@
+#!/usr/bin/make -f
+
+export DH_GOPKG := golang.org/x/sys
+# So that .s files (assembler) are installed.
+export DH_GOLANG_INSTALL_ALL := 1
+
+%:
+	dh $@ --buildsystem=golang --with=golang
+
+override_dh_auto_install:
+	dh_auto_install $@
+	rm debian/golang-golang-x-sys-dev/usr/share/gocode/src/golang.org/x/sys/plan9/*.sh
+	rm debian/golang-golang-x-sys-dev/usr/share/gocode/src/golang.org/x/sys/plan9/*.pl
+	rm debian/golang-golang-x-sys-dev/usr/share/gocode/src/golang.org/x/sys/unix/*.sh
+	rm debian/golang-golang-x-sys-dev/usr/share/gocode/src/golang.org/x/sys/unix/*.pl
+	rm debian/golang-golang-x-sys-dev/usr/share/gocode/src/golang.org/x/sys/LICENSE
+	rm debian/golang-golang-x-sys-dev/usr/share/gocode/src/golang.org/x/sys/AUTHORS
+	rm debian/golang-golang-x-sys-dev/usr/share/gocode/src/golang.org/x/sys/PATENTS
+	rm debian/golang-golang-x-sys-dev/usr/share/gocode/src/golang.org/x/sys/README
+	rm debian/golang-golang-x-sys-dev/usr/share/gocode/src/golang.org/x/sys/CONTRIBUTORS
+	rm debian/golang-golang-x-sys-dev/usr/share/gocode/src/golang.org/x/sys/CONTRIBUTING.md
+	rm debian/golang-golang-x-sys-dev/usr/share/gocode/src/golang.org/x/sys/.gitattributes

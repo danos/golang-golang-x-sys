@@ -1,0 +1,5 @@
+golang-golang-x-sys (0.0~git20150612-1) unstable; urgency=medium
+
+  * Initial release (Closes: #788909)
+
+ -- Michael Stapelberg <stapelberg@debian.org>  Tue, 16 Jun 2015 09:11:33 +0200
