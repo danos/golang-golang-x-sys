@@ -1,22 +1,23 @@
 Source: golang-golang-x-sys
 Section: devel
 Priority: extra
-Maintainer: pkg-go <pkg-go-maintainers@lists.alioth.debian.org>
-Uploaders: Michael Stapelberg <stapelberg@debian.org>
+Maintainer: Debian Go Packaging Team <pkg-go-maintainers@lists.alioth.debian.org>
+Uploaders: Michael Stapelberg <stapelberg@debian.org>,
+           Anthony Fok <foka@debian.org>
 Build-Depends: debhelper (>= 9),
                dh-golang,
                golang-go
-Standards-Version: 3.9.6
+Standards-Version: 3.9.8
 Homepage: http://golang.org/x/sys
-Vcs-Browser: http://anonscm.debian.org/gitweb/?p=pkg-go/packages/golang-golang-x-sys.git;a=summary
-Vcs-Git: git://anonscm.debian.org/pkg-go/packages/golang-golang-x-sys.git
+Vcs-Browser: https://anonscm.debian.org/cgit/pkg-go/packages/golang-golang-x-sys.git
+Vcs-Git: https://anonscm.debian.org/git/pkg-go/packages/golang-golang-x-sys.git
+XS-Go-Import-Path: golang.org/x/sys
 
 Package: golang-golang-x-sys-dev
 Architecture: all
 Depends: ${shlibs:Depends},
-         ${misc:Depends},
-         golang-go
+         ${misc:Depends}
 Built-Using: ${misc:Built-Using}
-Description: low-level interaction with the operating system
+Description: Low-level interaction with the operating system
  This repository holds supplemental Go packages for low-level interactions with
  the operating system.
