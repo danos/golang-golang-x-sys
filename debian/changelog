@@ -1,3 +1,15 @@
+golang-golang-x-sys (0.0~git20160415.0.f64b50f-1) unstable; urgency=medium
+
+  * Update debian/control
+    - Bump Standards-Version to 3.9.8
+    - Use https URLs for Vcs-Browser and Vcs-Git
+    - Add XS-Go-Import-Path field
+    - Remove dependency on golang-go
+    - Add myself to Uploaders
+  * Imported Upstream version 0.0~git20160415.0.f64b50f
+
+ -- Anthony Fok <foka@debian.org>  Wed, 20 Apr 2016 01:17:58 +0800
+
 golang-golang-x-sys (0.0~git20150612-1) unstable; urgency=medium
 
   * Initial release (Closes: #788909)
