@@ -3,7 +3,8 @@ Section: devel
 Priority: extra
 Maintainer: Debian Go Packaging Team <pkg-go-maintainers@lists.alioth.debian.org>
 Uploaders: Michael Stapelberg <stapelberg@debian.org>,
-           Anthony Fok <foka@debian.org>
+           Anthony Fok <foka@debian.org>,
+           Martín Ferrari <tincho@debian.org>
 Build-Depends: debhelper (>= 9),
                dh-golang,
                golang-go
