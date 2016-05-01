@@ -17,7 +17,8 @@ XS-Go-Import-Path: golang.org/x/sys
 Package: golang-golang-x-sys-dev
 Architecture: all
 Depends: ${shlibs:Depends},
-         ${misc:Depends}
+         ${misc:Depends},
+         golang-go (>= 2:1.4)
 Built-Using: ${misc:Built-Using}
 Description: Low-level interaction with the operating system
  This repository holds supplemental Go packages for low-level interactions with
