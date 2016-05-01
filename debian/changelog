@@ -1,3 +1,9 @@
+golang-golang-x-sys (0.0~git20160421.0.b776ec3-2) UNRELEASED; urgency=medium
+
+  * Depend on golang 1.4, as it fails to build with older versions.
+
+ -- Martín Ferrari <tincho@debian.org>  Sun, 01 May 2016 02:49:23 +0000
+
 golang-golang-x-sys (0.0~git20160421.0.b776ec3-1) unstable; urgency=medium
 
   * New upstream import, which fixes issues with inotify in ppc64*.
