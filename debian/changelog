@@ -1,10 +1,10 @@
-golang-golang-x-sys (0.0~git20160421.0.b776ec3-2) UNRELEASED; urgency=medium
+golang-golang-x-sys (0.0~git20160421.0.b776ec3-2) unstable; urgency=medium
 
   * Depend and build-depend on golang 1.4, as it fails to build with older
     versions.
   * Don't fail if a file to clean is not present.
 
- -- Martín Ferrari <tincho@debian.org>  Sun, 01 May 2016 02:49:23 +0000
+ -- Martín Ferrari <tincho@debian.org>  Sun, 01 May 2016 05:03:53 +0100
 
 golang-golang-x-sys (0.0~git20160421.0.b776ec3-1) unstable; urgency=medium
 
