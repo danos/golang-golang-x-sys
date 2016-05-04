@@ -6,7 +6,7 @@ Uploaders: Michael Stapelberg <stapelberg@debian.org>,
            Anthony Fok <foka@debian.org>,
            Martín Ferrari <tincho@debian.org>
 Build-Depends: debhelper (>= 9),
-               dh-golang,
+               dh-golang (>= 1.10),
                golang-go (>= 2:1.4)
 Standards-Version: 3.9.8
 Homepage: http://golang.org/x/sys

@@ -1,3 +1,9 @@
+golang-golang-x-sys (0.0~git20160421.0.b776ec3-3) UNRELEASED; urgency=medium
+
+  * Require dh-golang 1.10, for XS-Go-Import-Path.
+
+ -- Martín Ferrari <tincho@debian.org>  Wed, 04 May 2016 12:37:49 +0100
+
 golang-golang-x-sys (0.0~git20160421.0.b776ec3-2) unstable; urgency=medium
 
   * Depend and build-depend on golang 1.4, as it fails to build with older
