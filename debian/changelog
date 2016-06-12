@@ -1,3 +1,11 @@
+golang-golang-x-sys (0.0~git20160611.0.7f918dd-1) unstable; urgency=medium
+
+  * New upstream import
+  * Change golang-go to golang-any in Build-Depends and Depends
+    so gccgo may be used where golang-go is unavailable.
+
+ -- Anthony Fok <foka@debian.org>  Sun, 12 Jun 2016 08:36:33 -0600
+
 golang-golang-x-sys (0.0~git20160517.0.d4feaf1-1) unstable; urgency=medium
 
   [ Martín Ferrari ]
