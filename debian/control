@@ -18,7 +18,6 @@ Package: golang-golang-x-sys-dev
 Architecture: all
 Depends: ${shlibs:Depends},
          ${misc:Depends}
-Built-Using: ${misc:Built-Using}
 Description: Low-level interaction with the operating system
  This repository holds supplemental Go packages for low-level interactions with
  the operating system.
