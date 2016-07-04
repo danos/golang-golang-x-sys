@@ -1,3 +1,11 @@
+golang-golang-x-sys (0.0~git20160704.0.a408501-1) UNRELEASED; urgency=medium
+
+  * New upstream release. Closes: #828089.
+  * debian/control: depend on recent dh-golang.
+  * debian/rules: use new dh-golang features to simplify rules.
+
+ -- Martín Ferrari <tincho@debian.org>  Mon, 04 Jul 2016 17:16:23 +0000
+
 golang-golang-x-sys (0.0~git20160611.0.7f918dd-1) unstable; urgency=medium
 
   * New upstream import

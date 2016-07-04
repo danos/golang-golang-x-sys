@@ -1,19 +1,8 @@
 #!/usr/bin/make -f
 
-export DH_GOPKG := golang.org/x/sys
 # So that .s files (assembler) are installed.
-export DH_GOLANG_INSTALL_ALL := 1
+export DH_GOLANG_INSTALL_EXTRA := plan9/*.s unix/*.s windows/*.s \
+    windows/svc/*.s
 
 %:
 	dh $@ --buildsystem=golang --with=golang
-
-DESTDIR = debian/golang-golang-x-sys-dev/usr/share/gocode/src/golang.org/x/sys
-override_dh_auto_install:
-	dh_auto_install $@
-	rm -f $(DESTDIR)/plan9/*.sh $(DESTDIR)/plan9/*.pl \
-            $(DESTDIR)/unix/*.sh $(DESTDIR)/unix/*.pl \
-            $(DESTDIR)/LICENSE $(DESTDIR)/AUTHORS $(DESTDIR)/PATENTS \
-            $(DESTDIR)/README $(DESTDIR)/CONTRIBUTORS \
-            $(DESTDIR)/CONTRIBUTING.md $(DESTDIR)/codereview.cfg \
-            $(DESTDIR)/.gitattributes $(DESTDIR)/.gitignore \
-            $(DESTDIR)/unix/.gitignore
