@@ -1,10 +1,10 @@
-golang-golang-x-sys (0.0~git20161017.0.002cbb5-1) UNRELEASED; urgency=medium
+golang-golang-x-sys (0.0~git20161017.0.002cbb5-1) unstable; urgency=medium
 
   * New upstream release. Closes: #840423.
   * Do not include plan9 and windows packages that are not relevant to Debian.
     In particular, the plan9 package makes builds fail when using gccgo.
 
- -- Martín Ferrari <tincho@debian.org>  Thu, 20 Oct 2016 20:54:22 +0200
+ -- Martín Ferrari <tincho@debian.org>  Thu, 20 Oct 2016 21:20:24 +0200
 
 golang-golang-x-sys (0.0~git20161012.0.9bb9f09-1) unstable; urgency=medium
 
