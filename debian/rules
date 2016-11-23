@@ -3,6 +3,16 @@
 # Do not include plan9 and windows packages that are not relevant to Debian. In
 # particular, the plan9 package makes build fail when using gccgo.
 export DH_GOLANG_EXCLUDES := plan9 windows
+BUILDDIR := $(CURDIR)/build
 
 %:
-	dh $@ --buildsystem=golang --with=golang
+	dh $@ --buildsystem=golang --with=golang --builddirectory=$(BUILDDIR)
+
+override_dh_auto_configure:
+	dh_auto_configure
+	# Gccgo uses "mipsn64" for mips64el, instead of "mips64" like gc does.
+	cd $(BUILDDIR)/src/golang.org/x/sys/unix/; \
+	for i in errors syscall sysnum types; do \
+	    sed 's;^// +build mips64,linux;// +build mipsn64,linux;' \
+                < z$${i}_linux_mips64.go > z$${i}_linux_mipsn64.go; \
+	done

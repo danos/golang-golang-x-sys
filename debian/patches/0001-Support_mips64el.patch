@@ -1,0 +1,22 @@
+mips64: Add a Dup2 compatibility function, as it is not implemented in that
+arch.
+
+--- a/unix/syscall_linux_mips64x.go
++++ b/unix/syscall_linux_mips64x.go
+@@ -3,7 +3,7 @@
+ // license that can be found in the LICENSE file.
+ 
+ // +build linux
+-// +build mips64 mips64le
++// +build mips64 mips64le mipsn64
+ 
+ package unix
+ 
+@@ -206,3 +206,7 @@
+ 	}
+ 	return poll(&fds[0], len(fds), timeout)
+ }
++
++func Dup2(oldfd int, newfd int) (err error) {
++	return Dup3(oldfd, newfd, 0)
++}
