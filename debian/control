@@ -8,7 +8,7 @@ Uploaders: Michael Stapelberg <stapelberg@debian.org>,
 Build-Depends: debhelper (>= 9),
                dh-golang (>= 1.17~),
                golang-any (>= 2:1.4)
-Standards-Version: 3.9.8
+Standards-Version: 4.0.0
 Homepage: http://golang.org/x/sys
 Vcs-Browser: https://anonscm.debian.org/cgit/pkg-go/packages/golang-golang-x-sys.git
 Vcs-Git: https://anonscm.debian.org/git/pkg-go/packages/golang-golang-x-sys.git
