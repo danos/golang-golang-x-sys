@@ -13,6 +13,7 @@ Homepage: http://golang.org/x/sys
 Vcs-Browser: https://anonscm.debian.org/cgit/pkg-go/packages/golang-golang-x-sys.git
 Vcs-Git: https://anonscm.debian.org/git/pkg-go/packages/golang-golang-x-sys.git
 XS-Go-Import-Path: golang.org/x/sys
+Testsuite: autopkgtest-pkg-go
 
 Package: golang-golang-x-sys-dev
 Architecture: all
