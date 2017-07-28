@@ -9,10 +9,32 @@ BUILDDIR := $(CURDIR)/build
 	dh $@ --buildsystem=golang --with=golang --builddirectory=$(BUILDDIR)
 
 override_dh_auto_configure:
-	dh_auto_configure
-	# Gccgo uses "mipsn64" for mips64el, instead of "mips64" like gc does.
+	dh_auto_configure -O--buildsystem=golang -O--builddirectory=$(BUILDDIR)
+	# Prepare Go source files so gccgo on mips* can find them,
+	# while taking care to preserve correct endianness.
 	cd $(BUILDDIR)/src/golang.org/x/sys/unix/; \
 	for i in errors syscall sysnum types; do \
-	    sed 's;^// +build mips64,linux;// +build mipsn64,linux;' \
-                < z$${i}_linux_mips64.go > z$${i}_linux_mipsn64.go; \
+	    sed '\%^// +build %a // +build gccgo' \
+                < z$${i}_linux_mips.go > z$${i}_linux_mips_mipso32.go && \
+	    sed '\%^// +build %a // +build gccgo' \
+                < z$${i}_linux_mipsle.go > z$${i}_linux_mipsle_mipso32.go && \
+	    sed '\%^// +build %a // +build gccgo' \
+                < z$${i}_linux_mips64.go > z$${i}_linux_mips64_mipsn64.go && \
+	    sed '\%^// +build %a // +build gccgo' \
+                < z$${i}_linux_mips64le.go > z$${i}_linux_mips64le_mipsn64.go; \
 	done
+
+# We need to add -tags to for gccgo to handle MIPS architectures where
+# gccgo uses "mipso32" for mips/mipsle and "mipsn64" for mips64/mips64le
+ifeq ($(findstring mips,$(DEB_BUILD_ARCH)),mips)
+# mipsel => mipsle, mips64el => mips64le
+BUILDTAGS := $(DEB_BUILD_ARCH:el=le)
+endif
+
+ifdef BUILDTAGS
+override_dh_auto_build:
+	dh_auto_build -O--buildsystem=golang -O--builddirectory=$(BUILDDIR) -- -tags $(BUILDTAGS)
+
+override_dh_auto_test:
+	dh_auto_test -O--buildsystem=golang -O--builddirectory=$(BUILDDIR) -- -tags $(BUILDTAGS)
+endif
