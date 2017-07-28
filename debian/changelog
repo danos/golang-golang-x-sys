@@ -1,3 +1,23 @@
+golang-golang-x-sys (0.0~git20170727.0.35ef448-1) unstable; urgency=medium
+
+  * New upstream snapshot.
+  * Remove 0001-Support_mips64el.patch
+    because the Dup2 syscall has been added upstream in May 2017.
+    See "unix: add missing dup2 syscall on mips64*"
+    at https://go-review.googlesource.com/43430 and
+    at https://github.com/golang/sys/commit/6b70689.
+  * Fix the build on mips, mipsel and mips64el
+    as a continuation of the effort that Martín Ferrari started,
+    see https://github.com/golang/go/issues/18031.
+    Due to the current minimal code change to golang.org/x/sys/unix,
+    and to ensure the bool isBigEndian is set correctly, please run
+    gccgo with "-tags mips", "-tags mipsle" or "-tags mips64le"
+    as appropriate.
+  * Use debhelper (>= 10).
+  * Add "Testsuite: autopkgtest-pkg-go" to debian/control.
+
+ -- Anthony Fok <foka@debian.org>  Thu, 27 Jul 2017 21:14:10 -0600
+
 golang-golang-x-sys (0.0~git20170630.0.4ed4d40-1) unstable; urgency=medium
 
   [ Martín Ferrari ]
