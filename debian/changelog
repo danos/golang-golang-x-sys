@@ -1,11 +1,11 @@
-golang-golang-x-sys (0.0~git20170727.0.35ef448-2) UNRELEASED; urgency=high
+golang-golang-x-sys (0.0~git20170727.0.35ef448-2) unstable; urgency=high
 
   * Put a sane end to the mips* build issues. Closes: 872402, 878771.
     Note that for older versions of gccgo and mips/mipsel, you still need to
     manually add build tags (mips & mipsle, respectively).
   * Various automatic cme fixes.
 
- -- Martín Ferrari <tincho@debian.org>  Wed, 25 Oct 2017 01:09:12 +0000
+ -- Martín Ferrari <tincho@debian.org>  Wed, 25 Oct 2017 01:28:17 +0000
 
 golang-golang-x-sys (0.0~git20170727.0.35ef448-1) unstable; urgency=medium
 
