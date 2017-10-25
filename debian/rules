@@ -10,22 +10,23 @@ BUILDDIR := $(CURDIR)/build
 
 override_dh_auto_configure:
 	dh_auto_configure -O--buildsystem=golang -O--builddirectory=$(BUILDDIR)
-	# Prepare Go source files so gccgo on mips* can find them,
-	# while taking care to preserve correct endianness.
+	# Rename Go source files so older versions of gccgo on mips* can find
+	# them, and fix build restrictions. Endianness does not matter (for now
+	# at least), so remove dupes.
 	cd $(BUILDDIR)/src/golang.org/x/sys/unix/; \
 	for i in errors syscall sysnum types; do \
-	    sed '\%^// +build %a // +build gccgo' \
-                < z$${i}_linux_mips.go > z$${i}_linux_mips_mipso32.go && \
-	    sed '\%^// +build %a // +build gccgo' \
-                < z$${i}_linux_mipsle.go > z$${i}_linux_mipsle_mipso32.go && \
-	    sed '\%^// +build %a // +build gccgo' \
-                < z$${i}_linux_mips64.go > z$${i}_linux_mips64_mipsn64.go && \
-	    sed '\%^// +build %a // +build gccgo' \
-                < z$${i}_linux_mips64le.go > z$${i}_linux_mips64le_mipsn64.go; \
+            sed 's%^// +build .*%// +build linux,mips linux,mipsle linux,mipso32%' \
+                < z$${i}_linux_mips.go > z$${i}_linux_mipsx.go && \
+            rm z$${i}_linux_mipsle.go z$${i}_linux_mips.go && \
+            sed 's%^// +build .*%// +build linux,mips64 linux,mips64le linux,mipsn64%' \
+                < z$${i}_linux_mips64.go > z$${i}_linux_mips64x.go && \
+            rm z$${i}_linux_mips64le.go z$${i}_linux_mips64.go; \
 	done
 
-# We need to add -tags to for gccgo to handle MIPS architectures where
-# gccgo uses "mipso32" for mips/mipsle and "mipsn64" for mips64/mips64le
+# Sadly, the stupid arch names gccgo used until recently prevent us from
+# detecting endianness. Debian has only little endian for mips64, so that is
+# not an issue, but for 32-bits, while using older versions of gccgo, you'll
+# need to set the appropriate tags: mips or mipsle.
 ifeq ($(findstring mips,$(DEB_BUILD_ARCH)),mips)
 # mipsel => mipsle, mips64el => mips64le
 BUILDTAGS := $(DEB_BUILD_ARCH:el=le)
