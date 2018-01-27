@@ -1,3 +1,13 @@
+golang-golang-x-sys (0.0~git20180126.0.ff2a66f-1) UNRELEASED; urgency=medium
+
+  [ Felix Lechner ]
+  * New upstream version
+  * Set Build-Depends: debhelper (>= 11)
+  * Set compat to 11
+  * Set Standards-Version: 4.1.3
+
+ -- Felix Lechner <felix.lechner@lease-up.com>  Sun, 28 Jan 2018 07:56:17 -0800
+
 golang-golang-x-sys (0.0~git20170727.0.35ef448-2) unstable; urgency=high
 
   * Put a sane end to the mips* build issues. Closes: 872402, 878771.

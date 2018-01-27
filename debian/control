@@ -6,10 +6,10 @@ Uploaders: Michael Stapelberg <stapelberg@debian.org>,
 Section: devel
 Testsuite: autopkgtest-pkg-go
 Priority: optional
-Build-Depends: debhelper (>= 10),
+Build-Depends: debhelper (>= 11),
                dh-golang (>= 1.17~),
                golang-any,
-Standards-Version: 4.1.1
+Standards-Version: 4.1.3
 Vcs-Browser: https://anonscm.debian.org/cgit/pkg-go/packages/golang-golang-x-sys.git
 Vcs-Git: https://anonscm.debian.org/git/pkg-go/packages/golang-golang-x-sys.git
 Homepage: http://golang.org/x/sys
