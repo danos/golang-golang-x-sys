@@ -1,3 +1,11 @@
+golang-golang-x-sys (0.0~git20180224.f6cff07-1) unstable; urgency=medium
+
+  * New upstream version, which has gccgo redeclared *SyscallNoError
+    functions moved to a separate file and avoids build error with gccgo-8.
+    Many thanks to Shengjing Zhu for the detailed report. (Closes: #891894)
+
+ -- Anthony Fok <foka@debian.org>  Thu, 01 Mar 2018 23:43:02 -0700
+
 golang-golang-x-sys (0.0~git20180126.0.ff2a66f-1) unstable; urgency=medium
 
   [ Felix Lechner ]
