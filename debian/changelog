@@ -1,3 +1,13 @@
+golang-golang-x-sys (0.0~git20180308.349b81f-1) unstable; urgency=medium
+
+  * New upstream bugfix version:
+    - unix: skip SchedAffinity test on single CPU system
+      (by Michael Hudson-Doyle, fixes e.g. Ubuntu Autopkgtest on ARM64)
+    - unix: fix nil pointer dereference in Select on linux/{arm64,mips64x}
+      (by Tobias Klauser)
+
+ -- Anthony Fok <foka@debian.org>  Wed, 07 Mar 2018 20:24:42 -0700
+
 golang-golang-x-sys (0.0~git20180224.f6cff07-1) unstable; urgency=medium
 
   * New upstream version, which has gccgo redeclared *SyscallNoError
