@@ -1,0 +1,5 @@
+version=3
+
+opts=mode=git,uversionmangle=s/_git/~git/, \
+https://github.com/golang/sys.git \
+heads/master debian
