@@ -1,11 +1,13 @@
 golang-golang-x-sys (0.0~git20181026.95b1ffb-1) unstable; urgency=medium
 
   * Team upload.
+
+  [ Felix Lechner ]
   * Set Standards-Version: 4.2.1
   * Expand long package description.
   * Add watch file.
 
- -- Felix Lechner <felix.lechner@lease-up.com>  Sun, 28 Oct 2018 10:29:37 -0700
+ -- David Steele <steele@debian.org>  Sat, 03 Nov 2018 16:53:57 -0400
 
 golang-golang-x-sys (0.0~git20180510.7dfd129-1) unstable; urgency=medium
 
