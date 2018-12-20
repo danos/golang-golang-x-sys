@@ -1,3 +1,10 @@
+golang-golang-x-sys (0.0~git20181220.97b4c2a-1) unstable; urgency=medium
+
+  * New upstream version 0.0~git20181220.97b4c2a
+  * Update Maintainer email to team+pkg-go@tracker.debian.org
+
+ -- Anthony Fok <foka@debian.org>  Thu, 20 Dec 2018 10:29:44 -0700
+
 golang-golang-x-sys (0.0~git20181026.95b1ffb-1) unstable; urgency=medium
 
   * Team upload.
