@@ -1,3 +1,12 @@
+golang-golang-x-sys (0.0~git20190412.9773273+really0.0~git20181228.9a3f9b0-1) unstable; urgency=medium
+
+  * Team upload.
+  * Revert all changes between 0.0~git20181228.9a3f9b0-1
+    and 0.0~git20190412.9773273-1, resulting in an absurd version number.
+    See https://bugs.debian.org/928227 for a rationale.
+
+ -- Dr. Tobias Quathamer <toddy@debian.org>  Sun, 02 Jun 2019 22:39:17 +0200
+
 golang-golang-x-sys (0.0~git20190412.9773273-1) unstable; urgency=medium
 
   * New upstream version 0.0~git20190412.9773273
