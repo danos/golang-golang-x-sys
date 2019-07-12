@@ -1,3 +1,12 @@
+golang-golang-x-sys (0.0~git20190412.9773273+really0.0~git20190412.9773273-1) unstable; urgency=medium
+
+  * Revert to upstream version 0.0~git20190412.9773273 now that Debian 10
+    "buster" is released.  See https://bugs.debian.org/928227 for background
+    information.
+  * Bump Standards-Version to 4.4.0 (no change)
+
+ -- Anthony Fok <foka@debian.org>  Thu, 11 Jul 2019 18:49:18 -0600
+
 golang-golang-x-sys (0.0~git20190412.9773273+really0.0~git20181228.9a3f9b0-1) unstable; urgency=medium
 
   * Team upload.
