@@ -1,12 +1,24 @@
 Description: Fix mips build issues
+ Put a sane end to the mips* build issues. Closes: 872402, 878771.
+ .
+ Note that for older versions of gccgo and mips/mipsel, you still need to
+ manually add build tags (mips & mipsle, respectively).
+Author: Martín Ferrari <tincho@debian.org>
+Date: Wed Oct 25 01:16:13 2017 +0000
+Origin: Debian
+Bug-Debian: https://bugs.debian.org/872402, https://bugs.debian.org/878771
+Reviewed-by: Anthony Fok <foka@debian.org>
+Last-Update: 2019-07-27
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/unix/endian_little.go
 +++ b/unix/endian_little.go
 @@ -2,7 +2,7 @@
  // Use of this source code is governed by a BSD-style
  // license that can be found in the LICENSE file.
  //
--// +build 386 amd64 amd64p32 arm arm64 ppc64le mipsle mips64le
-+// +build 386 amd64 amd64p32 arm arm64 ppc64le mipsle mips64le mipsn64
+-// +build 386 amd64 amd64p32 arm arm64 ppc64le mipsle mips64le riscv64
++// +build 386 amd64 amd64p32 arm arm64 ppc64le mipsle mips64le mipsn64 riscv64
  
  package unix
  
