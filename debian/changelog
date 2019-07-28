@@ -1,3 +1,12 @@
+golang-golang-x-sys (0.0~git20190726.fc99dfb-1) unstable; urgency=medium
+
+  * New upstream version 0.0~git20190726.fc99dfb
+  * Update debian/watch to version=4
+  * Change Build-Depends: debhelper (>= 11) to (>= 11~)
+  * Refresh 01-Fix-mips-build-issues.patch
+
+ -- Anthony Fok <foka@debian.org>  Sat, 27 Jul 2019 22:49:03 -0600
+
 golang-golang-x-sys (0.0~git20190412.9773273+really0.0~git20190412.9773273-1) unstable; urgency=medium
 
   * Revert to upstream version 0.0~git20190412.9773273 now that Debian 10
