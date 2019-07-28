@@ -6,7 +6,7 @@ Uploaders: Michael Stapelberg <stapelberg@debian.org>,
 Section: devel
 Testsuite: autopkgtest-pkg-go
 Priority: optional
-Build-Depends: debhelper (>= 11~),
+Build-Depends: debhelper-compat (= 12),
                dh-golang (>= 1.17~),
                golang-any
 Standards-Version: 4.4.0
