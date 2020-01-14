@@ -1,3 +1,9 @@
+golang-golang-x-sys (0.0~git20190726.fc99dfb-1~bpo10+1) buster-backports; urgency=medium
+
+  * Rebuild for buster-backports.
+
+ -- Utkarsh Gupta <utkarsh@debian.org>  Wed, 15 Jan 2020 01:12:16 +0530
+
 golang-golang-x-sys (0.0~git20190726.fc99dfb-1) unstable; urgency=medium
 
   * New upstream version 0.0~git20190726.fc99dfb
