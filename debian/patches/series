@@ -1,1 +1,2 @@
 01-Fix-mips-build-issues.patch
+02-skip-checking-dev-random-in-TestDevices.patch
