@@ -1,3 +1,9 @@
+golang-golang-x-sys (0.0~git20200523.0598657-1) unstable; urgency=medium
+
+  * New upstream version 0.0~git20200523.0598657
+
+ -- Anthony Fok <foka@debian.org>  Mon, 25 May 2020 20:11:26 -0600
+
 golang-golang-x-sys (0.0~git20200219.cb0a6d8-1) unstable; urgency=medium
 
   * New upstream version 0.0~git20200219.cb0a6d8
