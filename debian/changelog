@@ -1,3 +1,26 @@
+golang-golang-x-sys (0.0~git20200523.0598657-1) unstable; urgency=medium
+
+  * New upstream version 0.0~git20200523.0598657
+
+ -- Anthony Fok <foka@debian.org>  Mon, 25 May 2020 20:11:26 -0600
+
+golang-golang-x-sys (0.0~git20200219.cb0a6d8-1) unstable; urgency=medium
+
+  * New upstream version 0.0~git20200219.cb0a6d8
+  * Update debhelper to "Build-Depends: debhelper-compat (= 12)"
+  * debian/gbp.conf: Set debian-branch to debian/sid for DEP-14 conformance
+  * Bump Standards-Version to 4.5.0 (no change)
+  * Add "Rules-Requires-Root: no" to debian/control
+  * Allow minor number of /dev/random to mismatch in TestDevices
+    as some autobuilders have /dev/random linked to /dev/urandom.
+    Thanks to Santiago Vila <sanvila@debian.org> for providing an
+    initial patch. (Closes: #907191)
+  * Skip TestOpenByHandleAt if openMountByID fails to prevent FTBFS under
+    pbuilder.  Thanks to Gianfranco Costamagna <locutusofborg@debian.org>
+    for providing an initial patch. (Closes: #935935)
+
+ -- Anthony Fok <foka@debian.org>  Fri, 21 Feb 2020 12:08:47 -0700
+
 golang-golang-x-sys (0.0~git20190726.fc99dfb-1~bpo10+1) buster-backports; urgency=medium
 
   * Rebuild for buster-backports.
