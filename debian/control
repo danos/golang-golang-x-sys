@@ -18,6 +18,7 @@ XS-Go-Import-Path: golang.org/x/sys
 
 Package: golang-golang-x-sys-dev
 Architecture: all
+Multi-Arch: foreign
 Depends: ${misc:Depends},
          ${shlibs:Depends}
 Description: Low-level interaction with the operating system
