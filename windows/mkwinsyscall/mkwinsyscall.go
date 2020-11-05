@@ -105,26 +105,20 @@ func (p *Param) tmpVar() string {
 
 // BoolTmpVarCode returns source code for bool temp variable.
 func (p *Param) BoolTmpVarCode() string {
-	const code = `var %s uint32
-	if %s {
-		%s = 1
-	} else {
-		%s = 0
+	const code = `var %[1]s uint32
+	if %[2]s {
+		%[1]s = 1
 	}`
-	tmp := p.tmpVar()
-	return fmt.Sprintf(code, tmp, p.Name, tmp, tmp)
+	return fmt.Sprintf(code, p.tmpVar(), p.Name)
 }
 
 // BoolPointerTmpVarCode returns source code for bool temp variable.
 func (p *Param) BoolPointerTmpVarCode() string {
-	const code = `var %s uint32
-	if *%s {
-		%s = 1
-	} else {
-		%s = 0
+	const code = `var %[1]s uint32
+	if *%[2]s {
+		%[1]s = 1
 	}`
-	tmp := p.tmpVar()
-	return fmt.Sprintf(code, tmp, p.Name, tmp, tmp)
+	return fmt.Sprintf(code, p.tmpVar(), p.Name)
 }
 
 // SliceTmpVarCode returns source code for slice temp variable.
@@ -202,6 +196,11 @@ func (p *Param) SyscallArgList() []string {
 		s = fmt.Sprintf("unsafe.Pointer(%s)", p.Name)
 	case t == "bool":
 		s = p.tmpVar()
+	case t == "Coord":
+		// Convert a COORD into a uintptr (by fooling the type system). This code
+		// assumes the two SHORTs are correctly laid out; the "cast" to uint32 is
+		// just to get a pointer to pass.
+		s = fmt.Sprintf("*((*uint32)(unsafe.Pointer(&%s)))", p.Name)
 	case strings.HasPrefix(t, "[]"):
 		return []string{
 			fmt.Sprintf("uintptr(unsafe.Pointer(%s))", p.tmpVar()),
@@ -304,17 +303,13 @@ func (r *Rets) SetReturnValuesCode() string {
 
 func (r *Rets) useLongHandleErrorCode(retvar string) string {
 	const code = `if %s {
-		if e1 != 0 {
-			err = errnoErr(e1)
-		} else {
-			err = %sEINVAL
-		}
+		err = errnoErr(e1)
 	}`
 	cond := retvar + " == 0"
 	if r.FailCond != "" {
 		cond = strings.Replace(r.FailCond, "failretval", retvar, 1)
 	}
-	return fmt.Sprintf(code, cond, syscalldot())
+	return fmt.Sprintf(code, cond)
 }
 
 // SetErrorCode returns source code that sets return parameters.
@@ -668,6 +663,7 @@ func (src *Source) DLLs() []string {
 			r = append(r, name)
 		}
 	}
+	sort.Strings(r)
 	return r
 }
 
@@ -702,6 +698,13 @@ func (src *Source) ParseFile(path string) error {
 		return err
 	}
 	src.Files = append(src.Files, path)
+	sort.Slice(src.Funcs, func(i, j int) bool {
+		fi, fj := src.Funcs[i], src.Funcs[j]
+		if fi.DLLName() == fj.DLLName() {
+			return fi.DLLFuncName() < fj.DLLFuncName()
+		}
+		return fi.DLLName() < fj.DLLName()
+	})
 
 	// get package name
 	fset := token.NewFileSet()
@@ -861,6 +864,7 @@ const (
 
 var (
 	errERROR_IO_PENDING error = {{syscalldot}}Errno(errnoERROR_IO_PENDING)
+	errERROR_EINVAL error     = {{syscalldot}}EINVAL
 )
 
 // errnoErr returns common boxed Errno values, to prevent
@@ -868,7 +872,7 @@ var (
 func errnoErr(e {{syscalldot}}Errno) error {
 	switch e {
 	case 0:
-		return nil
+		return errERROR_EINVAL
 	case errnoERROR_IO_PENDING:
 		return errERROR_IO_PENDING
 	}

@@ -13,6 +13,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+	"path/filepath"
 	"runtime"
 	"runtime/debug"
 	"strconv"
@@ -71,6 +72,22 @@ func TestIoctlGetRTCTime(t *testing.T) {
 	}
 
 	t.Logf("RTC time: %04d-%02d-%02d %02d:%02d:%02d", v.Year+1900, v.Mon+1, v.Mday, v.Hour, v.Min, v.Sec)
+}
+
+func TestIoctlGetRTCWkAlrm(t *testing.T) {
+	f, err := os.Open("/dev/rtc0")
+	if err != nil {
+		t.Skipf("skipping test, %v", err)
+	}
+	defer f.Close()
+
+	v, err := unix.IoctlGetRTCWkAlrm(int(f.Fd()))
+	if err != nil {
+		t.Fatalf("failed to perform ioctl: %v", err)
+	}
+
+	t.Logf("RTC wake alarm enabled '%d'; time: %04d-%02d-%02d %02d:%02d:%02d",
+		v.Enabled, v.Time.Year+1900, v.Time.Mon+1, v.Time.Mday, v.Time.Hour, v.Time.Min, v.Time.Sec)
 }
 
 func TestPpoll(t *testing.T) {
@@ -217,9 +234,12 @@ func TestPselect(t *testing.T) {
 	}
 
 	dur := 2500 * time.Microsecond
-	ts := unix.NsecToTimespec(int64(dur))
 	var took time.Duration
 	for {
+		// On some platforms (e.g. Linux), the passed-in timespec is
+		// updated by pselect(2). Make sure to reset to the full
+		// duration in case of an EINTR.
+		ts := unix.NsecToTimespec(int64(dur))
 		start := time.Now()
 		n, err := unix.Pselect(0, nil, nil, nil, &ts, nil)
 		took = time.Since(start)
@@ -235,8 +255,10 @@ func TestPselect(t *testing.T) {
 		break
 	}
 
-	if took < dur {
-		t.Errorf("Pselect: timeout should have been at least %v, got %v", dur, took)
+	// On some builder the actual timeout might also be slightly less than the requested.
+	// Add an acceptable margin to avoid flaky tests.
+	if took < dur*2/3 {
+		t.Errorf("Pselect: got %v timeout, expected at least %v", took, dur)
 	}
 }
 
@@ -712,5 +734,64 @@ func TestTimerfd(t *testing.T) {
 		}
 
 		count += *(*uint64)(unsafe.Pointer(&buffer))
+	}
+}
+
+func TestOpenat2(t *testing.T) {
+	how := &unix.OpenHow{
+		Flags: unix.O_RDONLY,
+	}
+	fd, err := unix.Openat2(unix.AT_FDCWD, ".", how)
+	if err != nil {
+		if err == unix.ENOSYS || err == unix.EPERM {
+			t.Skipf("openat2: %v (old kernel? need Linux >= 5.6)", err)
+		}
+		t.Fatalf("openat2: %v", err)
+	}
+	if err := unix.Close(fd); err != nil {
+		t.Fatalf("close: %v", err)
+	}
+
+	// prepare
+	tempDir, err := ioutil.TempDir("", t.Name())
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer os.RemoveAll(tempDir)
+
+	subdir := filepath.Join(tempDir, "dir")
+	if err := os.Mkdir(subdir, 0755); err != nil {
+		t.Fatal(err)
+	}
+	symlink := filepath.Join(subdir, "symlink")
+	if err := os.Symlink("../", symlink); err != nil {
+		t.Fatal(err)
+	}
+
+	dirfd, err := unix.Open(subdir, unix.O_RDONLY, 0)
+	if err != nil {
+		t.Fatalf("open(%q): %v", subdir, err)
+	}
+	defer unix.Close(dirfd)
+
+	// openat2 with no extra flags -- should succeed
+	fd, err = unix.Openat2(dirfd, "symlink", how)
+	if err != nil {
+		t.Errorf("Openat2 should succeed, got %v", err)
+	}
+	if err := unix.Close(fd); err != nil {
+		t.Fatalf("close: %v", err)
+	}
+
+	// open with RESOLVE_BENEATH, should result in EXDEV
+	how.Resolve = unix.RESOLVE_BENEATH
+	fd, err = unix.Openat2(dirfd, "symlink", how)
+	if err == nil {
+		if err := unix.Close(fd); err != nil {
+			t.Fatalf("close: %v", err)
+		}
+	}
+	if err != unix.EXDEV {
+		t.Errorf("Openat2 should fail with EXDEV, got %v", err)
 	}
 }
