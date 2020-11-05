@@ -1,11 +1,13 @@
-golang-golang-x-sys (0.0~git20200523.0598657-2) UNRELEASED; urgency=medium
-
-  * Team upload.
+golang-golang-x-sys (0.0~git20201101.da20708-1) unstable; urgency=medium
 
   [ Helmut Grohne ]
   * Mark golang-golang-x-sys-dev Multi-Arch: foreign. (Closes: #960255)
 
- -- Roger Shimizu <rosh@debian.org>  Sun, 11 Oct 2020 18:23:09 +0900
+  [ Anthony Fok ]
+  * New upstream version 0.0~git20201101.da20708
+  * Bump debhelper dependency to "Build-Depends: debhelper-compat (= 13)"
+
+ -- Anthony Fok <foka@debian.org>  Thu, 05 Nov 2020 01:25:40 -0700
 
 golang-golang-x-sys (0.0~git20200523.0598657-1) unstable; urgency=medium
 
