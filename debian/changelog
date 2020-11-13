@@ -1,3 +1,11 @@
+golang-golang-x-sys (0.0~git20201101.da20708-2) unstable; urgency=medium
+
+  * Add 04-add-linux-ppc-support-for-use-with-gccgo.patch
+    from https://go-review.googlesource.com/c/sys/+/262517
+    for powerpc architecture support
+
+ -- Anthony Fok <foka@debian.org>  Fri, 13 Nov 2020 05:22:29 -0700
+
 golang-golang-x-sys (0.0~git20201101.da20708-1) unstable; urgency=medium
 
   [ Helmut Grohne ]
