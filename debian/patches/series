@@ -1,3 +1,4 @@
 01-Fix-mips-build-issues.patch
 02-allow-dev-random-minor-minor-mismatch-in-TestDevices.patch
 03-skip-TestOpenByHandleAt-if-openMountByID-fails.patch
+04-add-linux-ppc-support-for-use-with-gccgo.patch
