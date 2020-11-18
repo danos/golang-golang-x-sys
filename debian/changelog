@@ -1,3 +1,9 @@
+golang-golang-x-sys (0.0~git20201101.da20708-2~bpo10+1) buster-backports; urgency=medium
+
+  * Rebuild for buster-backports.
+
+ -- Sruthi Chandran <srud@debian.org>  Thu, 19 Nov 2020 01:24:26 +0530
+
 golang-golang-x-sys (0.0~git20201101.da20708-2) unstable; urgency=medium
 
   * Add 04-add-linux-ppc-support-for-use-with-gccgo.patch
