@@ -1,3 +1,10 @@
+golang-golang-x-sys (0.0~git20201223.0d417f6-1) unstable; urgency=medium
+
+  * New upstream version 0.0~git20201223.0d417f6
+  * Refresh debian/patches/01-Fix-mips-build-issues.patch
+
+ -- Anthony Fok <foka@debian.org>  Thu, 31 Dec 2020 03:58:17 -0700
+
 golang-golang-x-sys (0.0~git20201101.da20708-2) unstable; urgency=medium
 
   * Add 04-add-linux-ppc-support-for-use-with-gccgo.patch
