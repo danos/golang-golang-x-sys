@@ -31,6 +31,9 @@ like func declarations if //sys is replaced by func, but:
   //sys LoadLibrary(libname string) (handle uint32, err error) [failretval==-1] = LoadLibraryA
   and is [failretval==0] by default.
 
+* If the function name ends in a "?", then the function not existing is non-
+  fatal, and an error will be returned instead of panicking.
+
 Usage:
 	mkwinsyscall [flags] [path ...]
 
@@ -196,11 +199,6 @@ func (p *Param) SyscallArgList() []string {
 		s = fmt.Sprintf("unsafe.Pointer(%s)", p.Name)
 	case t == "bool":
 		s = p.tmpVar()
-	case t == "Coord":
-		// Convert a COORD into a uintptr (by fooling the type system). This code
-		// assumes the two SHORTs are correctly laid out; the "cast" to uint32 is
-		// just to get a pointer to pass.
-		s = fmt.Sprintf("*((*uint32)(unsafe.Pointer(&%s)))", p.Name)
 	case strings.HasPrefix(t, "[]"):
 		return []string{
 			fmt.Sprintf("uintptr(unsafe.Pointer(%s))", p.tmpVar()),
@@ -241,10 +239,11 @@ func join(ps []*Param, fn func(*Param) string, sep string) string {
 
 // Rets describes function return parameters.
 type Rets struct {
-	Name         string
-	Type         string
-	ReturnsError bool
-	FailCond     string
+	Name          string
+	Type          string
+	ReturnsError  bool
+	FailCond      string
+	fnMaybeAbsent bool
 }
 
 // ErrorVarName returns error variable name for r.
@@ -275,6 +274,8 @@ func (r *Rets) List() string {
 	s := join(r.ToParams(), func(p *Param) string { return p.Name + " " + p.Type }, ", ")
 	if len(s) > 0 {
 		s = "(" + s + ")"
+	} else if r.fnMaybeAbsent {
+		s = "(err error)"
 	}
 	return s
 }
@@ -474,6 +475,10 @@ func newFn(s string) (*Fn, error) {
 	default:
 		return nil, errors.New("Could not extract dll name from \"" + f.src + "\"")
 	}
+	if n := f.dllfuncname; strings.HasSuffix(n, "?") {
+		f.dllfuncname = n[:len(n)-1]
+		f.Rets.fnMaybeAbsent = true
+	}
 	return f, nil
 }
 
@@ -570,6 +575,22 @@ func (f *Fn) HelperCallParamList() string {
 		a = append(a, s)
 	}
 	return strings.Join(a, ", ")
+}
+
+// MaybeAbsent returns source code for handling functions that are possibly unavailable.
+func (p *Fn) MaybeAbsent() string {
+	if !p.Rets.fnMaybeAbsent {
+		return ""
+	}
+	const code = `%[1]s = proc%[2]s.Find()
+	if %[1]s != nil {
+		return
+	}`
+	errorVar := p.Rets.ErrorVarName()
+	if errorVar == "" {
+		errorVar = "err"
+	}
+	return fmt.Sprintf(code, errorVar, p.DLLFuncName())
 }
 
 // IsUTF16 is true, if f is W (utf16) function. It is false
@@ -904,13 +925,16 @@ func {{.Name}}({{.ParamList}}) {{template "results" .}}{
 
 {{define "funcbody"}}
 func {{.HelperName}}({{.HelperParamList}}) {{template "results" .}}{
-{{template "tmpvars" .}}	{{template "syscall" .}}	{{template "tmpvarsreadback" .}}
+{{template "maybeabsent" .}}	{{template "tmpvars" .}}	{{template "syscall" .}}	{{template "tmpvarsreadback" .}}
 {{template "seterror" .}}{{template "printtrace" .}}	return
 }
 {{end}}
 
 {{define "helpertmpvars"}}{{range .Params}}{{if .TmpVarHelperCode}}	{{.TmpVarHelperCode}}
 {{end}}{{end}}{{end}}
+
+{{define "maybeabsent"}}{{if .MaybeAbsent}}{{.MaybeAbsent}}
+{{end}}{{end}}
 
 {{define "tmpvars"}}{{range .Params}}{{if .TmpVarCode}}	{{.TmpVarCode}}
 {{end}}{{end}}{{end}}
