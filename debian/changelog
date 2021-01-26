@@ -1,3 +1,15 @@
+golang-golang-x-sys (0.0~git20210124.22da62e-1) unstable; urgency=medium
+
+  * Team upload
+  * New upstream snapshot
+  * Update Section to golang
+  * Update Standards-Version to 4.5.1 (no changes)
+  * Drop all mips hacks.
+    The GOARCH issue on gccgo and mips has been fixed since gcc-8
+    https://github.com/gcc-mirror/gcc/commit/1701a9d8f0ca4153bbf3cf75487c6a14606e5121
+
+ -- Shengjing Zhu <zhsj@debian.org>  Wed, 27 Jan 2021 02:29:03 +0800
+
 golang-golang-x-sys (0.0~git20201223.0d417f6-1) unstable; urgency=medium
 
   * New upstream version 0.0~git20201223.0d417f6
