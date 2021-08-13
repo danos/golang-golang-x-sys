@@ -1,3 +1,9 @@
+golang-golang-x-sys (0.0~git20210124.22da62e-1danos1) unstable; urgency=medium
+
+  * debian: enable build on Debian 10 and 11
+
+ -- Daniel Gollub <dgollub@att.com>  Fri, 13 Aug 2021 18:53:38 +0200
+
 golang-golang-x-sys (0.0~git20210124.22da62e-1~bpo10+1) buster-backports; urgency=medium
 
   * Rebuild for buster-backports.
